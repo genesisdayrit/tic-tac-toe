@@ -9,15 +9,21 @@ export default function Gameboard() {
   const [board, setBoard] = useState<Cell[]>(Array(9).fill(''))
   
   function handleClick(i) {
-    const updatedBoard = [...board]; 
-    updatedBoard[i] = currentPlayer;
-    setCurrentPlayer((currentPlayer === 'X') ? 'O' : 'X')
-    setBoard(updatedBoard);
+    const updatedBoard = [...board];
+
+    if (board[i] === '') {
+      console.log(`Updated Cell ${i} to ${currentPlayer}`)
+      updatedBoard[i] = currentPlayer;
+      setCurrentPlayer((currentPlayer === 'X') ? 'O' : 'X')
+      console.log(`Current player is now ${currentPlayer}`)
+      setBoard(updatedBoard);
+    } else {console.log(`Cell not updated. Cell ${i} is already filled`)}
   }
 
   function resetBoard() {
     const updatedBoard = [...board]; 
     setBoard(Array(9).fill(''));
+    setCurrentPlayer('X')
   }
   
   return (
