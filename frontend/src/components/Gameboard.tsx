@@ -14,6 +14,11 @@ export default function Gameboard() {
     setCurrentPlayer((currentPlayer === 'X') ? 'O' : 'X')
     setBoard(updatedBoard);
   }
+
+  function resetBoard() {
+    const updatedBoard = [...board]; 
+    setBoard(Array(9).fill(''));
+  }
   
   return (
       <>
@@ -33,6 +38,9 @@ export default function Gameboard() {
             onClick={() => handleClick(i)}>{cell}
           </button>
         ))}
+
+      <button onClick={resetBoard}>Reset Game</button>
+      
       </div>
       
       
