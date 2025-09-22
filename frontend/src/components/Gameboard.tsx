@@ -18,6 +18,7 @@ export default function Gameboard() {
   function resetBoard() {
     const updatedBoard = [...board]; 
     setBoard(Array(9).fill(''));
+    setCurrentPlayer('X')
   }
   
   return (
