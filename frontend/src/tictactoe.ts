@@ -5,7 +5,7 @@ type Cell = Player | ''
 type GameState = {
     currentPlayer: 'X' | 'O'
     board: Cell[]
-    endState: 'X' | 'O' | 'tie' | undefined
+    currentGameState: 'X' | 'O' | 'tie' | 'in progress' | undefined
 }
 
 export type { Player, Cell, GameState }

@@ -4,19 +4,56 @@ import type { Player, Cell, GameState } from '../tictactoe'
 
 export default function Gameboard() {
 
+  const [currentGameState, setCurrentGameState] = useState('in progress')
   const [currentPlayer, setCurrentPlayer] = useState<Player>('X')
   const [cellContent, setCellContent] = useState('')
   const [board, setBoard] = useState<Cell[]>(Array(9).fill(''))
-  
-  function handleClick(i) {
+
+  const winningTriples = [
+    // horizontal winners
+    [0, 1, 2],
+    [3, 4, 5],
+    [3, 4, 5],
+
+    // vertical winners 
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+
+    // diagnol winners
+    [0, 4, 8], 
+    [2, 4, 6]
+  ]
+
+  function checkEndState(boardState) {
+    // for each winning triple, check if the board state has matching values and non-empty strings
+    for (let i = 0; i < winningTriples.length; i++) {
+      if (
+        (boardState[winningTriples[i][0]] === boardState[winningTriples[i][0]] && boardState[winningTriples[i][0]] === boardState[winningTriples[i][0]])
+        && (boardState[winningTriples[i][0]] != '' && boardState[winningTriples[i][1]] != '' && boardState[winningTriples[i][2]] != '')
+      ) {
+        console.log('Winner')
+      }
+
+    }
+  }
+    function handleClick(i) {
     const updatedBoard = [...board];
 
     if (board[i] === '') {
-      console.log(`Updated Cell ${i} to ${currentPlayer}`)
+      
       updatedBoard[i] = currentPlayer;
+      console.log(`Updated Cell ${i} to ${currentPlayer}`)
+      
       setCurrentPlayer((currentPlayer === 'X') ? 'O' : 'X')
       console.log(`Current player is now ${currentPlayer}`)
+      
       setBoard(updatedBoard);
+      setCurrentGameState('in progress')      
+      console.log(`Current game state ${currentGameState}`)
+
+      checkEndState(updatedBoard)
+
     } else {console.log(`Cell not updated. Cell ${i} is already filled`)}
   }
 
@@ -25,7 +62,7 @@ export default function Gameboard() {
     setBoard(Array(9).fill(''));
     setCurrentPlayer('X')
   }
-  
+
   return (
       <>
       <h1>Tic-Tac-Toe</h1>
@@ -49,8 +86,7 @@ export default function Gameboard() {
       
       </div>
       
-      
   </>
   )
   
-}
+  }
