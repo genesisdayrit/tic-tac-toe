@@ -7,6 +7,7 @@ export default function Gameboard() {
   const [currentGameState, setCurrentGameState] = useState('in progress')
   const [currentPlayer, setCurrentPlayer] = useState<Player>('X')
   const [cellContent, setCellContent] = useState('')
+  const [winnerContent, setWinnerContent] = useState('')
   const [board, setBoard] = useState<Cell[]>(Array(9).fill(''))
 
   const winningTriples = [
@@ -24,17 +25,23 @@ export default function Gameboard() {
     [0, 4, 8], 
     [2, 4, 6]
   ]
-
-  function checkEndState(boardState) {
-    // for each winning triple, check if the board state has matching values and non-empty strings
+  
+  function checkEndState(boardArray) {
+    // for each winning triple, check if the board state has matching values and non-empty strings  
+    
+    if (
+      (!boardArray.includes(''))
+    ) {
+      console.log('Board is filled.')
+    }
     for (let i = 0; i < winningTriples.length; i++) {
       if (
-        (boardState[winningTriples[i][0]] === boardState[winningTriples[i][0]] && boardState[winningTriples[i][0]] === boardState[winningTriples[i][0]])
-        && (boardState[winningTriples[i][0]] != '' && boardState[winningTriples[i][1]] != '' && boardState[winningTriples[i][2]] != '')
+        (boardArray[winningTriples[i][0]] === boardArray[winningTriples[i][1]] && boardArray[winningTriples[i][0]] === boardArray[winningTriples[i][2]])
+        && (boardArray[winningTriples[i][0]] != '' && boardArray[winningTriples[i][1]] != '' && boardArray[winningTriples[i][2]] != '')
       ) {
         console.log('Winner')
+        setWinnerContent(`the winner is ${currentPlayer}`)
       }
-
     }
   }
     function handleClick(i) {
@@ -66,6 +73,7 @@ export default function Gameboard() {
   return (
       <>
       <h1>Tic-Tac-Toe</h1>
+      <h3>{winnerContent}</h3>
       <div className="
         grid grid-cols-3
         gap-[6px]              /* line thickness between squares */
