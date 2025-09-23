@@ -25,15 +25,10 @@ export default function Gameboard() {
     [0, 4, 8], 
     [2, 4, 6]
   ]
-  
+
   function checkEndState(boardArray) {
     // for each winning triple, check if the board state has matching values and non-empty strings  
     
-    if (
-      (!boardArray.includes(''))
-    ) {
-      console.log('Board is filled.')
-    }
     for (let i = 0; i < winningTriples.length; i++) {
       if (
         (boardArray[winningTriples[i][0]] === boardArray[winningTriples[i][1]] && boardArray[winningTriples[i][0]] === boardArray[winningTriples[i][2]])
@@ -41,6 +36,13 @@ export default function Gameboard() {
       ) {
         console.log('Winner')
         setWinnerContent(`the winner is ${currentPlayer}`)
+      }
+    
+      if (
+        (!boardArray.includes(''))
+      ) {
+        console.log('Draw.')
+        setWinnerContent(`The game is a draw.`)
       }
     }
   }
